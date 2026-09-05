@@ -14,5 +14,24 @@ export function parseJson<T>(value: string, fallback: T): T {
 }
 
 export function siteUrl() {
-  return process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  const candidates = [
+    process.env.NEXT_PUBLIC_SITE_URL,
+    process.env.VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+      : "",
+    process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "",
+    "http://localhost:3000",
+  ];
+
+  for (const candidate of candidates) {
+    const value = candidate?.trim();
+    if (!value) continue;
+    try {
+      return new URL(value).origin;
+    } catch {
+      // try the next candidate
+    }
+  }
+
+  return "http://localhost:3000";
 }
