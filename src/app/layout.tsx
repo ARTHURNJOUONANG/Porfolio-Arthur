@@ -8,6 +8,8 @@ const geist = Geist({ subsets: ["latin"], variable: "--font-geist" });
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
 const syne = Syne({ subsets: ["latin"], variable: "--font-syne" });
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl()),
   title: {
