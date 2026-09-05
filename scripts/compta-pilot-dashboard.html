@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <title>Compta Pilot — Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Geist, Inter, system-ui, sans-serif;
+      background: #f8fafc;
+      color: #0f172a;
+    }
+    .app {
+      width: 1440px;
+      height: 810px;
+      display: grid;
+      grid-template-columns: 248px 1fr;
+      overflow: hidden;
+    }
+    aside {
+      background: linear-gradient(180deg, #0f172a 0%, #020617 100%);
+      color: #f8fafc;
+      padding: 22px 16px;
+    }
+    .brand { display: flex; gap: 12px; align-items: center; margin-bottom: 28px; }
+    .logo {
+      width: 40px; height: 40px; border-radius: 12px;
+      background: linear-gradient(135deg, #10b981, #34d399);
+      display: grid; place-items: center;
+      font-weight: 800; color: #fff;
+      box-shadow: 0 4px 16px rgb(16 185 129 / 0.35);
+    }
+    .brand small { color: #94a3b8; font-size: 11px; }
+    .nav a {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 12px; border-radius: 12px;
+      color: #94a3b8; text-decoration: none; font-size: 14px; font-weight: 500;
+      margin-bottom: 4px;
+    }
+    .nav a.on {
+      background: linear-gradient(135deg, rgb(16 185 129 / 0.2), rgb(5 150 105 / 0.12));
+      color: #34d399; font-weight: 600;
+      box-shadow: inset 0 0 0 1px rgb(16 185 129 / 0.25);
+    }
+    .user {
+      margin-top: 36px; padding: 12px;
+      border: 1px solid rgb(255 255 255 / 0.08);
+      border-radius: 14px; font-size: 13px;
+    }
+    .user b { display: block; }
+    .user span { color: #94a3b8; font-size: 12px; }
+    main {
+      background:
+        radial-gradient(ellipse 70% 45% at 10% -5%, rgb(16 185 129 / 0.08), transparent 55%),
+        linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+      padding: 28px 32px;
+    }
+    .top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 22px; }
+    h1 { margin: 0; font-size: 28px; letter-spacing: -0.4px; }
+    .sub { margin: 6px 0 0; color: #475569; font-size: 14px; }
+    .actions { display: flex; gap: 8px; }
+    .btn {
+      border: 0; border-radius: 12px; padding: 9px 14px;
+      font-weight: 600; font-size: 13px; font-family: inherit;
+    }
+    .btn-green {
+      background: linear-gradient(135deg, #059669, #10b981);
+      color: #fff; box-shadow: 0 4px 14px rgb(5 150 105 / 0.35);
+    }
+    .btn-dark { background: #1e293b; color: #fff; }
+    .btn-line { background: #fff; border: 1px solid #e2e8f0; color: #334155; }
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .stat {
+      background: #fff; border: 1px solid #e2e8f0; border-radius: 20px;
+      padding: 18px 18px 16px; box-shadow: 0 1px 2px rgb(15 23 42 / 0.04), 0 8px 24px rgb(15 23 42 / 0.06);
+    }
+    .stat .label { font-size: 13px; color: #64748b; font-weight: 600; }
+    .stat .value { font-size: 34px; font-weight: 800; margin: 8px 0 4px; }
+    .stat .hint { font-size: 12px; color: #64748b; }
+    .stat.danger .value { color: #dc2626; }
+    .grid { display: grid; grid-template-columns: 1.6fr 0.9fr; gap: 14px; margin-top: 14px; }
+    .card {
+      background: #fff; border: 1px solid #e2e8f0; border-radius: 20px;
+      padding: 18px; box-shadow: 0 1px 2px rgb(15 23 42 / 0.04), 0 8px 24px rgb(15 23 42 / 0.06);
+    }
+    .card h2 { margin: 0 0 14px; font-size: 16px; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th { text-align: left; color: #64748b; font-weight: 600; padding: 8px 0; border-bottom: 1px solid #e2e8f0; }
+    td { padding: 10px 0; border-bottom: 1px solid #f1f5f9; }
+    .badge {
+      display: inline-block; border-radius: 999px; padding: 3px 8px;
+      font-size: 11px; font-weight: 700;
+    }
+    .todo { background: #ecfdf5; color: #047857; }
+    .late { background: #fef2f2; color: #b91c1c; }
+    .val { background: #eff6ff; color: #1d4ed8; }
+    .urg { background: #fff7ed; color: #c2410c; }
+    .collab { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #f1f5f9; }
+    .pts { color: #059669; font-weight: 800; }
+    .chip { background: #ecfdf5; color: #047857; border-radius: 10px; padding: 10px 12px; font-size: 13px; margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside>
+      <div class="brand">
+        <div class="logo">CP</div>
+        <div>
+          <div style="font-weight:700">Compta Pilot</div>
+          <small>Cabinet</small>
+        </div>
+      </div>
+      <nav class="nav">
+        <a class="on">Tableau de bord</a>
+        <a>Clients</a>
+        <a>Tâches</a>
+        <a>Coffre-fort</a>
+        <a>Contrats</a>
+        <a>Rapport</a>
+        <a>Équipe</a>
+        <a>Notifications</a>
+      </nav>
+      <div class="user">
+        <b>Arthur Njouonang</b>
+        <span>Dirigeant</span>
+      </div>
+    </aside>
+    <main>
+      <div class="top">
+        <div>
+          <h1>Tableau de bord</h1>
+          <p class="sub">Pilotage du cabinet · clients, échéances, OCR et assignation</p>
+        </div>
+        <div class="actions">
+          <button class="btn btn-green">Générer TVA du mois</button>
+          <button class="btn btn-dark">Rapport hebdo</button>
+          <button class="btn btn-line">Export CSV retards</button>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="label">Clients suivis</div><div class="value">24</div><div class="hint">Portefeuille actif</div></div>
+        <div class="stat danger"><div class="label">Tâches en retard</div><div class="value">3</div><div class="hint">Échéance dépassée, hors terminé</div></div>
+        <div class="stat danger"><div class="label">Urgences ouvertes</div><div class="value">2</div><div class="hint">Priorité urgente non bouclée</div></div>
+        <div class="stat"><div class="label">En validation</div><div class="value">5</div><div class="hint">Contrôle anti-erreur</div></div>
+      </div>
+      <div class="grid">
+        <section class="card">
+          <h2>Tâches à suivre</h2>
+          <table>
+            <thead>
+              <tr><th>Tâche</th><th>Client</th><th>Assigné</th><th>Échéance</th><th>Statut</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>TVA mensuelle septembre</td><td>Atelier Lumière</td><td>Léa Martin</td><td>12 sept. 2026</td><td><span class="badge late">Retard</span></td></tr>
+              <tr><td>OCR facture fournisseur</td><td>Boulangerie Dupont</td><td>Amine Khelifi</td><td>15 sept. 2026</td><td><span class="badge urg">Urgent</span></td></tr>
+              <tr><td>Clôture mensuelle</td><td>Studio Nova</td><td>Sofia Durand</td><td>18 sept. 2026</td><td><span class="badge val">Validation</span></td></tr>
+              <tr><td>Dépôt liasse fiscale</td><td>Green Bike</td><td>Léa Martin</td><td>22 sept. 2026</td><td><span class="badge todo">À faire</span></td></tr>
+            </tbody>
+          </table>
+        </section>
+        <section class="card">
+          <h2>Suggestions intelligentes</h2>
+          <div class="chip">Assigner la TVA d’Atelier Lumière à Léa — meilleure fiabilité.</div>
+          <div class="chip">3 documents OCR en attente dans le coffre-fort.</div>
+          <h2 style="margin-top:18px">Charge & fiabilité</h2>
+          <div class="collab"><div><b>Léa Martin</b><div class="hint" style="color:#64748b;font-size:12px">2 tâches ouvertes / max 6</div></div><div class="pts">92 pts</div></div>
+          <div class="collab"><div><b>Amine Khelifi</b><div class="hint" style="color:#64748b;font-size:12px">3 tâches ouvertes / max 5</div></div><div class="pts">84 pts</div></div>
+          <div class="collab"><div><b>Sofia Durand</b><div class="hint" style="color:#64748b;font-size:12px">1 tâche ouverte / max 4</div></div><div class="pts">78 pts</div></div>
+        </section>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

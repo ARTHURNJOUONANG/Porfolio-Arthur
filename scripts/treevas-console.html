@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <title>Treevas Agents</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0b1220;
+      --panel: #121b2c;
+      --line: #243149;
+      --text: #e8eef6;
+      --mute: #93a0b5;
+      --gold: #c9a86a;
+      --livia: #7eb8b2;
+      --evans: #e8a85c;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Inter, "Segoe UI", Arial, sans-serif; }
+    .app {
+      width: 1440px;
+      height: 810px;
+      background:
+        radial-gradient(900px 420px at 18% 0%, rgba(126,184,178,0.16), transparent 55%),
+        radial-gradient(800px 380px at 92% 100%, rgba(232,168,92,0.12), transparent 50%),
+        var(--bg);
+      color: var(--text);
+      display: grid;
+      grid-template-columns: 360px 1fr;
+    }
+    .side {
+      border-right: 1px solid var(--line);
+      padding: 28px 24px;
+    }
+    .brand {
+      font-size: 13px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 700;
+    }
+    h1 { margin: 10px 0 6px; font-size: 28px; }
+    .sub { color: var(--mute); font-size: 14px; line-height: 1.5; margin: 0 0 22px; }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+    .card.on { border-color: rgba(126,184,178,0.55); box-shadow: 0 0 0 1px rgba(126,184,178,0.2); }
+    .who { display: flex; gap: 12px; align-items: center; }
+    .av {
+      width: 42px; height: 42px; border-radius: 50%;
+      display: grid; place-items: center; font-weight: 700;
+    }
+    .livia { background: rgba(126,184,178,0.2); color: var(--livia); }
+    .evans { background: rgba(232,168,92,0.18); color: var(--evans); }
+    .name { font-weight: 700; }
+    .role { color: var(--mute); font-size: 12px; margin-top: 2px; }
+    .meta { margin-top: 22px; color: var(--mute); font-size: 12px; line-height: 1.7; }
+    .main { padding: 26px 36px; display: flex; flex-direction: column; }
+    .top {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 18px;
+    }
+    .pill {
+      border: 1px solid var(--line); border-radius: 999px;
+      padding: 7px 12px; font-size: 12px; color: var(--mute); font-weight: 600;
+    }
+    .ok { color: var(--livia); }
+    .thread { flex: 1; display: flex; flex-direction: column; gap: 14px; }
+    .msg {
+      max-width: 720px; border-radius: 16px; padding: 14px 16px;
+      line-height: 1.55; font-size: 15px;
+    }
+    .user { align-self: flex-end; background: #1a2740; border: 1px solid var(--line); }
+    .bot { background: var(--panel); border: 1px solid rgba(126,184,178,0.28); }
+    .tag { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+    .route { color: var(--gold); }
+    .audio {
+      display: flex; align-items: center; gap: 10px;
+      margin-top: 10px; color: var(--mute); font-size: 12px; font-weight: 600;
+    }
+    .bar { width: 180px; height: 8px; border-radius: 99px; background: #1d2a40; overflow: hidden; }
+    .bar i { display: block; width: 62%; height: 100%; background: var(--livia); }
+    .composer {
+      margin-top: 18px; display: flex; gap: 10px; align-items: center;
+      background: var(--panel); border: 1px solid var(--line); border-radius: 999px;
+      padding: 10px 10px 10px 18px;
+    }
+    .composer span { flex: 1; color: var(--mute); }
+    .send {
+      background: var(--gold); color: #1a1408; border: 0; border-radius: 999px;
+      padding: 10px 16px; font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="side">
+      <div class="brand">Sleepography · TreevasGroup</div>
+      <h1>Agents IA</h1>
+      <p class="sub">Livia et Evans répondent selon le sujet : sommeil / QAI ou sport / performance.</p>
+      <div class="card on">
+        <div class="who">
+          <div class="av livia">L</div>
+          <div>
+            <div class="name">Livia</div>
+            <div class="role">Sommeil · qualité de l'air · voyage</div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="who">
+          <div class="av evans">E</div>
+          <div>
+            <div class="name">Evans</div>
+            <div class="role">Sport · récupération · performance</div>
+          </div>
+        </div>
+      </div>
+      <div class="meta">
+        FastAPI · /chat · /chat/audio<br />
+        Groq llama-3.3-70b-versatile<br />
+        Routeur LIVIA / EVANS · mémoire session<br />
+        TTS ElevenLabs
+      </div>
+    </aside>
+    <main class="main">
+      <div class="top">
+        <div class="pill">TreevasGroup Agent API <span class="ok">● online</span></div>
+        <div class="pill">avatar = auto · session default</div>
+      </div>
+      <div class="thread">
+        <div class="msg user">L'air de ma chambre d'hôtel est trop sec, ça perturbe mon sommeil. Que puis-je faire sans m'inquiéter ?</div>
+        <div class="msg bot">
+          <div class="tag route">Routé vers LIVIA</div>
+          Je suis Livia, ambassadrice Sleepography. Un air trop sec assèche les muqueuses et fragmente le sommeil, surtout en voyage. Hydratez la pièce (40–50 %), aérez 5 minutes, et gardez la chambre un peu plus fraîche que le salon. Rien d'alarmant : ce sont des ajustements simples de qualité de l'air intérieur.
+          <div class="audio"><div class="bar"><i></i></div> TTS · livia_response.mp3 · /chat/audio</div>
+        </div>
+      </div>
+      <div class="composer">
+        <span>Parler à Livia ou Evans… le routeur choisit l'avatar</span>
+        <button class="send">Envoyer</button>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

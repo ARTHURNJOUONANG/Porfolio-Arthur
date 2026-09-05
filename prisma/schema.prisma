@@ -1,0 +1,107 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+}
+
+model Project {
+  id            String   @id @default(cuid())
+  slug          String   @unique
+  titleFr       String
+  titleEn       String
+  excerptFr     String
+  excerptEn     String
+  problemFr     String
+  problemEn     String
+  contextFr     String
+  contextEn     String
+  featuresFr    String
+  featuresEn    String
+  architecture  String
+  techStack     String
+  challengesFr  String
+  challengesEn  String
+  solutionsFr   String
+  solutionsEn   String
+  resultFr      String
+  resultEn      String
+  image         String?
+  demoUrl       String?
+  githubUrl     String?
+  docsUrl       String?
+  featured      Boolean  @default(true)
+  published     Boolean  @default(true)
+  sortOrder     Int      @default(0)
+  views         Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Experience {
+  id           String   @id @default(cuid())
+  titleFr      String
+  titleEn      String
+  company      String
+  period       String
+  year         Int
+  missionsFr   String
+  missionsEn   String
+  technologies String
+  resultsFr    String
+  resultsEn    String
+  sortOrder    Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Education {
+  id         String   @id @default(cuid())
+  titleFr    String
+  titleEn    String
+  school     String
+  period     String
+  detailFr   String
+  detailEn   String
+  sortOrder  Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Skill {
+  id        String   @id @default(cuid())
+  category  String
+  name      String
+  sortOrder Int      @default(0)
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String
+  body      String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model Setting {
+  key   String @id
+  value String
+}
+
+model PageView {
+  id        String   @id @default(cuid())
+  path      String
+  referrer  String?
+  createdAt DateTime @default(now())
+}

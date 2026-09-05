@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <title>SymfoConnect</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0f1115;
+      --bg-soft: #171a21;
+      --surface: #1f242d;
+      --text: #f5f7fa;
+      --muted: #a2a9b4;
+      --border: #303744;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Inter, "Segoe UI", Arial, sans-serif; }
+    .app {
+      width: 1440px;
+      height: 810px;
+      background: linear-gradient(180deg, var(--bg-soft) 0%, var(--bg) 100%);
+      color: var(--text);
+    }
+    .topbar {
+      height: 62px;
+      background: rgba(15, 17, 21, 0.88);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; }
+    .dot {
+      width: 10px; height: 10px; border-radius: 50%; background: #fff;
+      box-shadow: 0 0 0 6px rgba(255,255,255,0.08);
+    }
+    .menu { display: flex; gap: 8px; }
+    .menu a {
+      color: var(--muted); padding: 9px 15px; border-radius: 9px;
+      font-size: 14px; font-weight: 600; text-decoration: none;
+    }
+    .menu a.on { color: var(--text); background: var(--surface); border: 1px solid var(--border); }
+    .page { width: 760px; margin: 28px auto 0; }
+    .head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    h1 { margin: 0; font-size: 22px; }
+    .chip {
+      background: #2b313c; border: 1px solid var(--border);
+      border-radius: 999px; padding: 5px 10px; font-size: 12px; font-weight: 700;
+    }
+    .composer, .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    }
+    .composer { padding: 13px; margin-bottom: 16px; display: flex; gap: 12px; align-items: center; }
+    .pill {
+      flex: 1; background: #272d38; color: var(--muted);
+      border: 1px solid var(--border); border-radius: 999px; padding: 10px 15px;
+    }
+    .avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: #f0f2f5; color: #111; display: grid; place-items: center; font-weight: 700;
+    }
+    .card { padding: 16px 16px 13px; margin-bottom: 16px; }
+    .card p { margin: 0 0 12px; line-height: 1.5; }
+    .meta { color: var(--muted); font-size: 14px; border-top: 1px solid #2c3340; padding-top: 11px; }
+    .actions { display: flex; gap: 8px; border-top: 1px solid #2c3340; margin-top: 9px; padding-top: 9px; color: var(--muted); font-size: 14px; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand"><span class="dot"></span> SymfoConnect Dark</div>
+      <nav class="menu">
+        <a>Accueil</a>
+        <a class="on">Feed</a>
+        <a>Messages</a>
+        <a>Nouveau post</a>
+        <a>arthurnjouonang</a>
+        <a>Deconnexion</a>
+      </nav>
+    </header>
+    <main class="page">
+      <div class="head">
+        <h1>Fil d'actualite</h1>
+        <span class="chip">3 post(s)</span>
+      </div>
+      <div class="composer">
+        <div class="avatar">S</div>
+        <div class="pill">Exprimez-vous... Ecrire un nouveau post</div>
+      </div>
+      <article class="card">
+        <p>Premier déploiement Symfony 7 + API Platform : auth, feed et messagerie sur le même socle Doctrine.</p>
+        <div class="meta">Par <b>lea.dev</b> le 05/09/2026 14:20 · 12 like(s)</div>
+        <div class="actions"><span>Unlike</span></div>
+      </article>
+      <article class="card">
+        <p>Qui bosse sur un réseau social en Twig / Stimulus / Turbo ? On échange.</p>
+        <div class="meta">Par <b>amine.k</b> le 04/09/2026 18:05 · 7 like(s)</div>
+        <div class="actions"><span>Like</span></div>
+      </article>
+      <article class="card">
+        <p>SymfoConnect : inscription, profil, likes et messages privés — tout en PHP 8.2.</p>
+        <div class="meta">Par <b>arthur</b> le 03/09/2026 09:41 · 21 like(s)</div>
+        <div class="actions"><span>Unlike</span></div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

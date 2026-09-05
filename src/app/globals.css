@@ -1,0 +1,497 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #0a0a0a;
+  --bg-elevated: #111111;
+  --bg-muted: #161616;
+  --line: #232323;
+  --text: #ffffff;
+  --muted: #a1a1aa;
+  --accent: #e4b429;
+  --accent-soft: rgba(228, 180, 41, 0.12);
+  --danger: #f87171;
+  --ok: #34d399;
+}
+
+.light {
+  --bg: #f6f3eb;
+  --bg-elevated: #fffdf8;
+  --bg-muted: #efe8d8;
+  --line: #e4dcc8;
+  --text: #161513;
+  --muted: #6b6558;
+  --accent: #b8860b;
+  --accent-soft: rgba(184, 134, 11, 0.12);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-card: var(--bg-elevated);
+  --color-muted-bg: var(--bg-muted);
+  --color-line: var(--line);
+  --color-ink: var(--text);
+  --color-mute: var(--muted);
+  --color-accent: var(--accent);
+  --font-sans: var(--font-geist);
+  --font-display: var(--font-syne);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+}
+
+.neural-stage {
+  position: relative;
+}
+
+.neural-glow {
+  position: absolute;
+  inset: 8% 12%;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(228, 180, 41, 0.16), transparent 68%);
+  filter: blur(28px);
+  animation: brain-glow 8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.neural-board {
+  position: relative;
+  height: min(62dvh, 560px);
+  overflow: visible;
+  animation: brain-float 9s ease-in-out infinite;
+}
+
+.neural-link {
+  stroke: var(--accent);
+  stroke-width: 0.35;
+  stroke-opacity: 0.45;
+  animation: synapse-breathe 4.8s ease-in-out infinite;
+}
+
+.neuron-slot {
+  position: absolute;
+  z-index: 2;
+  transform: translate(-50%, -50%);
+}
+
+.neuron {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  min-width: 44px;
+  min-height: 44px;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  will-change: transform;
+}
+
+.neuron-core {
+  position: relative;
+  gap: 0;
+}
+
+.neuron-core .neuron-label {
+  position: absolute;
+  top: calc(100% + 0.45rem);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.neuron-float-0 {
+  animation: neuron-drift-a 6.4s ease-in-out infinite;
+}
+
+.neuron-float-1 {
+  animation: neuron-drift-b 7.2s ease-in-out infinite;
+}
+
+.neuron-float-2 {
+  animation: neuron-drift-c 8s ease-in-out infinite;
+}
+
+.neuron-float-3 {
+  animation: neuron-drift-d 6.8s ease-in-out infinite 0.4s;
+}
+
+.neuron-dot {
+  display: block;
+  border-radius: 9999px;
+  background: var(--accent);
+  box-shadow: 0 0 0 6px var(--accent-soft), 0 0 22px var(--accent);
+  animation: neuron-pulse 2.6s ease-in-out infinite;
+}
+
+.neuron-core .neuron-dot {
+  width: 22px;
+  height: 22px;
+}
+
+.neuron-md .neuron-dot {
+  width: 14px;
+  height: 14px;
+}
+
+.neuron-sm .neuron-dot {
+  width: 10px;
+  height: 10px;
+}
+
+.neuron-label {
+  font-size: 0.75rem;
+  color: var(--text);
+  white-space: nowrap;
+  padding: 0.15rem 0.55rem;
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--bg) 78%, transparent);
+  border: 1px solid var(--line);
+}
+
+.portrait {
+  overflow: hidden;
+  flex-shrink: 0;
+  border-radius: 9999px;
+  border: 2px solid var(--accent);
+  background: var(--bg-elevated);
+  box-shadow: 0 0 0 6px var(--accent-soft), 0 0 26px rgba(228, 180, 41, 0.35);
+}
+
+.portrait img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 68% 18%;
+}
+
+.portrait-fallback {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  color: var(--accent);
+  background:
+    radial-gradient(circle at 35% 30%, rgba(228, 180, 41, 0.22), transparent 55%),
+    var(--bg-elevated);
+}
+
+.portrait-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 1.1rem;
+  width: max-content;
+  transform: translateX(-50%);
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.portrait-lg {
+  position: relative;
+  margin-inline: auto;
+}
+
+.neuron:hover .neuron-dot,
+.neuron:focus-visible .neuron-dot,
+.neuron:hover .portrait,
+.neuron:focus-visible .portrait {
+  transform: scale(1.08);
+  box-shadow: 0 0 0 8px var(--accent-soft), 0 0 28px var(--accent);
+}
+
+.neuron:hover .neuron-label,
+.neuron:focus-visible .neuron-label {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+@media (max-width: 720px) {
+  .neural-board {
+    height: min(68dvh, 520px);
+  }
+
+  .neuron-label {
+    font-size: 0.65rem;
+    padding: 0.12rem 0.4rem;
+  }
+}
+
+::selection {
+  background: var(--accent);
+  color: #111;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.display {
+  font-family: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
+}
+
+.hairline {
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  height: 1px;
+}
+
+.orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(70px);
+  opacity: 0.45;
+}
+
+.orb-a {
+  top: 8%;
+  right: 8%;
+  width: 280px;
+  height: 280px;
+  background: rgba(228, 180, 41, 0.28);
+  animation: drift-a 14s ease-in-out infinite;
+}
+
+.orb-b {
+  top: 42%;
+  left: -6%;
+  width: 340px;
+  height: 340px;
+  background: rgba(228, 180, 41, 0.12);
+  animation: drift-b 18s ease-in-out infinite;
+}
+
+.orb-c {
+  bottom: 8%;
+  right: 18%;
+  width: 220px;
+  height: 220px;
+  background: rgba(255, 255, 255, 0.06);
+  animation: drift-c 16s ease-in-out infinite;
+}
+
+.float-card {
+  animation: float-y 7s ease-in-out infinite;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.float-card:hover {
+  border-color: color-mix(in srgb, var(--accent) 50%, var(--line));
+  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.35);
+}
+
+@keyframes drift-a {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-40px, 30px, 0);
+  }
+}
+
+@keyframes drift-b {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(50px, -36px, 0);
+  }
+}
+
+@keyframes drift-c {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-24px, -40px, 0);
+  }
+}
+
+.rise {
+  animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.rise-nav {
+  animation: rise-nav 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes rise-nav {
+  from {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes neuron-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 6px var(--accent-soft), 0 0 18px var(--accent);
+  }
+  50% {
+    box-shadow: 0 0 0 10px var(--accent-soft), 0 0 28px var(--accent);
+  }
+}
+
+@keyframes brain-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-0.5deg);
+  }
+  50% {
+    transform: translate3d(0, -16px, 0) rotate(0.55deg);
+  }
+}
+
+@keyframes brain-glow {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes synapse-breathe {
+  0%,
+  100% {
+    stroke-opacity: 0.28;
+  }
+  50% {
+    stroke-opacity: 0.62;
+  }
+}
+
+@keyframes neuron-drift-a {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -8px, 0);
+  }
+}
+
+@keyframes neuron-drift-b {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(6px, -5px, 0);
+  }
+}
+
+@keyframes neuron-drift-c {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-6px, 7px, 0);
+  }
+}
+
+@keyframes neuron-drift-d {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(5px, 6px, 0);
+  }
+}
+
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-16px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orb,
+  .float-card,
+  .rise,
+  .rise-nav,
+  .neuron-dot,
+  .neural-board,
+  .neural-glow,
+  .neural-link,
+  .neuron-float-0,
+  .neuron-float-1,
+  .neuron-float-2,
+  .neuron-float-3 {
+    animation: none;
+  }
+}
+
+.cv-section {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.cv-entry + .cv-entry {
+  padding-top: 0.25rem;
+}
+
+@media print {
+  header,
+  footer,
+  [aria-label="Portfolio assistant"],
+  [aria-label="Assistant portfolio"] {
+    display: none !important;
+  }
+
+  body {
+    background: #fff;
+    color: #111;
+  }
+
+  .cv-sheet {
+    background: #fff !important;
+    color: #111;
+    box-shadow: none;
+  }
+
+  .cv-section {
+    color: #8a6d0b;
+    border-bottom-color: #ddd;
+  }
+}

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" role="img" aria-label="ProTech Occitanie">
+  <rect width="1200" height="750" fill="#111111"/>
+  <rect x="70" y="80" width="1060" height="590" rx="32" fill="#0A0A0A"/>
+  <text x="130" y="230" fill="#E4B429" font-family="Georgia, serif" font-size="56">ProTech Occitanie</text>
+  <text x="130" y="300" fill="#A1A1AA" font-family="Arial, sans-serif" font-size="26">Solution compl�te � Web � API � Admin</text>
+  <path d="M130 380 H980" stroke="#232323"/>
+  <rect x="130" y="420" width="250" height="160" rx="18" fill="#161616"/>
+  <rect x="410" y="420" width="250" height="160" rx="18" fill="#161616"/>
+  <rect x="690" y="420" width="250" height="160" rx="18" fill="#161616"/>
+</svg>

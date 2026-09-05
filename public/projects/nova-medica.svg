@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" role="img" aria-label="Nova Medica">
+  <rect width="1200" height="750" fill="#111111"/>
+  <circle cx="980" cy="180" r="90" fill="none" stroke="#E4B429" stroke-width="3"/>
+  <text x="120" y="230" fill="#FFFFFF" font-family="Georgia, serif" font-size="58">Nova Medica</text>
+  <text x="120" y="300" fill="#A1A1AA" font-family="Arial, sans-serif" font-size="26">Gestion patients � Hackathon</text>
+  <rect x="120" y="370" width="720" height="220" rx="24" fill="#0A0A0A" stroke="#232323"/>
+  <rect x="160" y="410" width="200" height="14" rx="7" fill="#E4B429"/>
+  <rect x="160" y="450" width="520" height="10" rx="5" fill="#232323"/>
+  <rect x="160" y="480" width="460" height="10" rx="5" fill="#232323"/>
+</svg>

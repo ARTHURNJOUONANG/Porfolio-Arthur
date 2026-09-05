@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" role="img" aria-label="CRM">
+  <rect width="1200" height="750" fill="#111111"/>
+  <rect x="90" y="100" width="1020" height="550" rx="28" fill="#0A0A0A" stroke="#232323"/>
+  <text x="140" y="210" fill="#FFFFFF" font-family="Georgia, serif" font-size="64">CRM</text>
+  <text x="140" y="275" fill="#A1A1AA" font-family="Arial, sans-serif" font-size="26">Auth � CRUD � API � Dashboard</text>
+  <rect x="140" y="340" width="210" height="130" rx="16" fill="#161616"/>
+  <rect x="370" y="340" width="210" height="130" rx="16" fill="#161616"/>
+  <rect x="600" y="340" width="210" height="130" rx="16" fill="#161616"/>
+  <rect x="140" y="360" width="90" height="10" rx="5" fill="#E4B429"/>
+</svg>

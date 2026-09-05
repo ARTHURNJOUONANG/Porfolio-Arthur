@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <title>Protech Occitanie mockups</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ciel: #1E6FD9;
+      --ciel-light: #5B9FE8;
+      --ciel-container: #E3F0FC;
+      --on-ciel: #0F3D6E;
+      --horizon: #F5FAFF;
+      --surface: #ffffff;
+      --border: #D0E3F5;
+      --ink: #1E293B;
+      --muted: #475569;
+      --hint: #94A3B8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+      background: #0b1220;
+      color: var(--ink);
+    }
+    .board { display: none; }
+    .board.active { display: block; }
+    .phone {
+      width: 390px;
+      height: 844px;
+      background: var(--horizon);
+      position: relative;
+      overflow: hidden;
+    }
+    .status {
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 22px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .nav {
+      position: absolute;
+      left: 16px;
+      right: 16px;
+      bottom: 16px;
+      height: 76px;
+      background: rgba(255,255,255,0.96);
+      border-radius: 26px;
+      box-shadow: 0 14px 32px rgba(30,111,217,0.09), 0 6px 20px rgba(0,0,0,0.07);
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      align-items: center;
+      padding: 0 6px;
+    }
+    .nav button {
+      border: 0;
+      background: none;
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--muted);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    .nav button.on {
+      font-weight: 700;
+      color: var(--ciel);
+    }
+    .nav .dot {
+      width: 42px;
+      height: 28px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+    }
+    .nav button.on .dot { background: var(--ciel-container); }
+    .icon { font-size: 18px; line-height: 1; }
+    .appbar {
+      background: #fff;
+      padding: 6px 16px 12px;
+    }
+    .appbar .kicker {
+      font-size: 11px;
+      letter-spacing: 0.6px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+    .appbar h1 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.4px;
+    }
+    .content { padding: 16px 16px 110px; }
+    .hero {
+      background: linear-gradient(135deg, #1E6FD9, #5B9FE8);
+      color: #fff;
+      border-radius: 28px;
+      padding: 22px;
+      box-shadow: 0 12px 28px rgba(30,111,217,0.32);
+    }
+    .hero h2 { margin: 0 0 8px; font-size: 24px; }
+    .hero p { margin: 0; opacity: 0.92; font-size: 14px; line-height: 1.4; }
+    .banner {
+      margin-top: 16px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 16px;
+    }
+    .banner strong { display: block; margin-bottom: 6px; }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .qa {
+      background: #fff;
+      border: 1px solid #E2ECF4;
+      border-radius: 22px;
+      padding: 16px 10px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .qa .circle {
+      width: 42px;
+      height: 42px;
+      margin: 0 auto 8px;
+      border-radius: 50%;
+      background: var(--ciel-container);
+      color: var(--ciel);
+      display: grid;
+      place-items: center;
+      font-size: 18px;
+    }
+    .search {
+      width: 100%;
+      border: 1px solid rgba(100,116,139,0.35);
+      border-radius: 18px;
+      padding: 14px 16px 14px 42px;
+      font: inherit;
+      background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='%2394A3B8' viewBox='0 0 24 24'%3E%3Cpath d='M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79L20 21.5 21.5 20l-6-6zM9.5 14C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3E%3C/svg%3E") 14px 50% no-repeat;
+    }
+    .chips { display: flex; gap: 6px; margin: 10px 0 8px; overflow: hidden; }
+    .chip {
+      background: var(--ciel-container);
+      color: var(--on-ciel);
+      border-radius: 12px;
+      padding: 7px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .chip.ghost { background: #fff; border: 1px solid var(--border); color: var(--muted); }
+    .card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 16px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      margin-bottom: 10px;
+      display: flex;
+      gap: 14px;
+    }
+    .avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--ciel);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .meta { font-size: 13px; color: var(--muted); margin-top: 4px; }
+    .city { font-size: 12px; color: var(--hint); margin-top: 6px; }
+    .login {
+      background: radial-gradient(circle at 20% 10%, #d6ebfa, transparent 40%),
+                  radial-gradient(circle at 90% 20%, #e3f0fc, transparent 35%),
+                  var(--horizon);
+      min-height: 100%;
+      padding: 20px 24px 32px;
+      text-align: center;
+    }
+    .logo {
+      width: 88px;
+      height: 88px;
+      margin: 18px auto 20px;
+      border-radius: 28px;
+      background: linear-gradient(145deg, #1E6FD9, #5B9FE8);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 22px;
+      box-shadow: 0 16px 32px rgba(30,111,217,0.28);
+    }
+    .login h1 { font-size: 28px; margin: 0 0 8px; letter-spacing: -0.6px; }
+    .login .tag { color: var(--muted); font-size: 14px; margin: 0 0 24px; }
+    .toggle {
+      display: flex;
+      padding: 4px;
+      border-radius: 18px;
+      background: rgba(232,242,251,0.85);
+      border: 1px solid rgba(208,227,245,0.8);
+      margin-bottom: 22px;
+    }
+    .toggle span {
+      flex: 1;
+      padding: 12px 0;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .toggle .on { background: var(--ciel); color: #fff; box-shadow: 0 4px 12px rgba(30,111,217,0.22); }
+    .glass {
+      text-align: left;
+      background: rgba(255,255,255,0.9);
+      border: 1px solid rgba(208,227,245,0.5);
+      border-radius: 28px;
+      padding: 24px;
+      box-shadow: 0 28px 48px rgba(30,111,217,0.07);
+    }
+    .field {
+      border: 1px solid rgba(100,116,139,0.35);
+      border-radius: 18px;
+      padding: 16px;
+      margin: 12px 0;
+      color: var(--hint);
+      background: #fff;
+    }
+    .cta {
+      width: 100%;
+      border: 0;
+      background: var(--ciel);
+      color: #fff;
+      border-radius: 16px;
+      padding: 16px;
+      font: inherit;
+      font-weight: 600;
+      margin-top: 18px;
+    }
+    .forgot { text-align: right; color: var(--ciel); font-size: 14px; font-weight: 600; }
+    .guest { margin-top: 24px; color: var(--ciel); font-weight: 600; font-size: 14px; }
+    .need-title { font-weight: 700; margin: 0 0 4px; }
+    .need-open { color: #16A34A; font-size: 12px; font-weight: 700; }
+    #cover {
+      width: 1440px;
+      height: 810px;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(30,111,217,0.35), transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(91,159,232,0.25), transparent 40%),
+        #0b1220;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      padding: 40px;
+    }
+    #cover .frame {
+      width: 390px;
+      height: 844px;
+      transform: scale(0.78);
+      transform-origin: center;
+      border-radius: 36px;
+      overflow: hidden;
+      box-shadow: 0 30px 70px rgba(0,0,0,0.45);
+      outline: 8px solid #1a2336;
+    }
+    #cover .frame.mid { transform: scale(0.88); z-index: 2; }
+  </style>
+</head>
+<body>
+  <section id="login" class="board active">
+    <div class="phone">
+      <div class="status"><span>9:41</span><span>●●●</span></div>
+      <div class="login">
+        <div class="logo">PO</div>
+        <h1>Protech Occitanie</h1>
+        <p class="tag">Le réseau qui relie besoins numériques et experts en Occitanie</p>
+        <div class="toggle"><span class="on">Connexion</span><span>Inscription</span></div>
+        <div class="glass">
+          <strong>Connexion sécurisée</strong>
+          <p class="meta">Publiez un besoin numérique ou proposez votre expertise aux entreprises d’Occitanie.</p>
+          <div class="field">✉ Email</div>
+          <div class="field">🔒 Mot de passe</div>
+          <div class="forgot">Mot de passe oublié ?</div>
+          <button class="cta">Se connecter</button>
+        </div>
+        <div class="guest">👥 Parcourir l’annuaire sans compte</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="home" class="board">
+    <div class="phone">
+      <div class="status"><span>9:41</span><span>●●●</span></div>
+      <div class="appbar">
+        <div class="kicker">ESPACE MEMBRE</div>
+        <h1>Accueil</h1>
+      </div>
+      <div class="content">
+        <div class="hero">
+          <h2>Bienvenue, Arthur !</h2>
+          <p>Publiez un besoin ou répondez aux demandes des entreprises de la région.</p>
+        </div>
+        <div class="banner">
+          <strong>Un besoin informatique, des experts qui répondent</strong>
+          <p class="meta">1. Publiez un besoin · 2. Recevez des propositions · 3. Échangez en messagerie</p>
+        </div>
+        <div class="grid">
+          <div class="qa"><div class="circle">＋</div>Publier un besoin</div>
+          <div class="qa"><div class="circle">⌕</div>Voir les besoins</div>
+          <div class="qa"><div class="circle">▣</div>Tableau de bord</div>
+          <div class="qa"><div class="circle">📅</div>Événements</div>
+        </div>
+      </div>
+      <nav class="nav">
+        <button class="on"><span class="dot"><span class="icon">⌂</span></span>Accueil</button>
+        <button><span class="dot"><span class="icon">👥</span></span>Annuaire</button>
+        <button><span class="dot"><span class="icon">💼</span></span>Besoins</button>
+        <button><span class="dot"><span class="icon">💬</span></span>Messagerie</button>
+        <button><span class="dot"><span class="icon">☺</span></span>Profil</button>
+      </nav>
+    </div>
+  </section>
+
+  <section id="directory" class="board">
+    <div class="phone">
+      <div class="status"><span>9:41</span><span>●●●</span></div>
+      <div class="appbar"><h1>Annuaire</h1></div>
+      <div class="content">
+        <input class="search" value="Recherche (nom, ville, compétence…)" readonly />
+        <div class="chips">
+          <span class="chip">Tous</span>
+          <span class="chip ghost">Entreprise</span>
+          <span class="chip ghost">Freelance</span>
+          <span class="chip ghost">Étudiant</span>
+        </div>
+        <article class="card">
+          <div class="avatar">LM</div>
+          <div>
+            <strong>Léa Martin</strong> <span class="chip">Freelance</span>
+            <div class="meta">Développeuse Flutter · Toulouse</div>
+            <div class="city">📍 Toulouse</div>
+            <div class="chips"><span class="chip">Flutter</span><span class="chip">Dart</span><span class="chip">Firebase</span></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="avatar" style="background:#1558B0">AK</div>
+          <div>
+            <strong>Amine Khelifi</strong> <span class="chip">Agence</span>
+            <div class="meta">Lead backend Node.js · Montpellier</div>
+            <div class="city">📍 Montpellier</div>
+            <div class="chips"><span class="chip">Node.js</span><span class="chip">Express</span><span class="chip">SQLite</span></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="avatar" style="background:#5B9FE8">SD</div>
+          <div>
+            <strong>Sofia Durand</strong> <span class="chip">Étudiant</span>
+            <div class="meta">Cybersécurité · Nîmes</div>
+            <div class="city">📍 Nîmes</div>
+            <div class="chips"><span class="chip">Pentest</span><span class="chip">Réseau</span></div>
+          </div>
+        </article>
+      </div>
+      <nav class="nav">
+        <button><span class="dot"><span class="icon">⌂</span></span>Accueil</button>
+        <button class="on"><span class="dot"><span class="icon">👥</span></span>Annuaire</button>
+        <button><span class="dot"><span class="icon">💼</span></span>Besoins</button>
+        <button><span class="dot"><span class="icon">💬</span></span>Messagerie</button>
+        <button><span class="dot"><span class="icon">☺</span></span>Profil</button>
+      </nav>
+    </div>
+  </section>
+
+  <section id="needs" class="board">
+    <div class="phone">
+      <div class="status"><span>9:41</span><span>●●●</span></div>
+      <div class="appbar">
+        <h1>Besoins numériques</h1>
+        <p class="meta">Les entreprises publient un besoin, les experts du réseau répondent.</p>
+      </div>
+      <div class="content">
+        <div class="chips">
+          <span class="chip">Ouverts</span>
+          <span class="chip ghost">Pourvus</span>
+          <span class="chip ghost">Tous</span>
+        </div>
+        <article class="card" style="display:block">
+          <p class="need-open">OUVERT · Site web</p>
+          <p class="need-title">Site vitrine pour ma boutique</p>
+          <p class="meta">Toulouse · Budget 5 000 – 15 000 € · 3 propositions</p>
+          <button class="cta" style="margin-top:12px">Proposer</button>
+        </article>
+        <article class="card" style="display:block">
+          <p class="need-open">OUVERT · Application mobile</p>
+          <p class="need-title">App de suivi de stock pour artisan</p>
+          <p class="meta">Montpellier · À discuter · 1 proposition</p>
+          <button class="cta" style="margin-top:12px">Proposer</button>
+        </article>
+        <article class="card" style="display:block">
+          <p class="need-open" style="color:#1E6FD9">OUVERT · Cybersécurité</p>
+          <p class="need-title">Audit et durcissement d’un intranet</p>
+          <p class="meta">Nîmes · &gt; 15 000 €</p>
+          <button class="cta" style="margin-top:12px">Proposer</button>
+        </article>
+      </div>
+      <nav class="nav">
+        <button><span class="dot"><span class="icon">⌂</span></span>Accueil</button>
+        <button><span class="dot"><span class="icon">👥</span></span>Annuaire</button>
+        <button class="on"><span class="dot"><span class="icon">💼</span></span>Besoins</button>
+        <button><span class="dot"><span class="icon">💬</span></span>Messagerie</button>
+        <button><span class="dot"><span class="icon">☺</span></span>Profil</button>
+      </nav>
+    </div>
+  </section>
+
+  <section id="cover" class="board">
+    <div class="frame" data-src="login"></div>
+    <div class="frame mid" data-src="home"></div>
+    <div class="frame" data-src="directory"></div>
+  </section>
+</body>
+</html>
