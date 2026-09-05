@@ -16,9 +16,13 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: 24
-          cache: npm
-      - run: npm ci --ignore-scripts
-      - run: npx prisma generate
-      - run: npm run lint
-      - run: npm test
-      - run: npm run build
+      - name: Install
+        run: npm install --no-audit --no-fund --ignore-scripts
+      - name: Prisma
+        run: npx prisma generate && npx prisma db push --skip-generate
+      - name: Lint
+        run: npm run lint
+      - name: Test
+        run: npm test
+      - name: Build
+        run: npm run build
