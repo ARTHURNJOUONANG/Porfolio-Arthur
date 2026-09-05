@@ -36,27 +36,39 @@ export function NeuralMap({ dict }: { dict: Dictionary }) {
 
   return (
     <section className="relative z-10 mx-auto w-full max-w-5xl px-4 pb-10" aria-label={dict.brain.title}>
-      <p className="mb-6 text-center text-sm text-mute">{dict.brain.hint}</p>
+      <p className="rise mb-6 text-center text-sm text-mute" style={{ animationDelay: "280ms" }}>
+        {dict.brain.hint}
+      </p>
       <div className="neural-stage">
         <div className="neural-glow" aria-hidden="true" />
         <div className="neural-board">
           <svg className="pointer-events-none absolute inset-0 z-0 h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-            {satellites.map((node) => (
-              <line
-                key={node.id}
-                className="neural-link"
-                x1={core.x}
-                y1={core.y}
-                x2={node.x}
-                y2={node.y}
-              />
+            {satellites.map((node, index) => (
+              <g key={node.id}>
+                <line
+                  className="neural-link"
+                  x1={core.x}
+                  y1={core.y}
+                  x2={node.x}
+                  y2={node.y}
+                  style={{ animationDelay: `${index * 180}ms` }}
+                />
+                <circle className="neural-signal" r="0.85" fill="var(--accent)">
+                  <animateMotion
+                    dur={`${2.4 + (index % 4) * 0.45}s`}
+                    begin={`${index * 0.22}s`}
+                    repeatCount="indefinite"
+                    path={`M ${core.x},${core.y} L ${node.x},${node.y}`}
+                  />
+                </circle>
+              </g>
             ))}
           </svg>
           {nodes.map((node, index) => (
             <div
               key={node.id}
-              className="neuron-slot"
-              style={{ left: `${node.x}%`, top: `${node.y}%` }}
+              className="neuron-slot neuron-enter"
+              style={{ left: `${node.x}%`, top: `${node.y}%`, animationDelay: `${160 + index * 70}ms` }}
             >
               <Link
                 href={node.href}

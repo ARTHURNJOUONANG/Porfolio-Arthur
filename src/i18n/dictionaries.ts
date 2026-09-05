@@ -19,7 +19,7 @@ export const dictionaries = {
       cv: "CV",
     },
     hero: {
-      kicker: "Alternance 12 mois · Disponible sept. 2026 · Île-de-France",
+      kicker: "Full Stack · Web · IA",
       name: "Arthur Njouonang",
       title: "Développeur Full Stack · JavaScript · Java · Python · IA",
       tagline: "Bac+5 Hexagon · 3 sem. entreprise / 1 sem. école · produits en production.",
@@ -165,7 +165,7 @@ export const dictionaries = {
       cv: "Resume",
     },
     hero: {
-      kicker: "12-month apprenticeship · Available Sept. 2026 · Île-de-France",
+      kicker: "Full Stack · Web · AI",
       name: "Arthur Njouonang",
       title: "Full Stack Developer · JavaScript · Java · Python · AI",
       tagline: "Bac+5 Hexagon · 3 weeks company / 1 week school · products in production.",

@@ -19,8 +19,8 @@ export default async function ProjectsPage() {
       <Container className="pt-32 pb-20">
         <SectionHeading kicker={dict.projects.kicker} title={dict.projects.title} subtitle={dict.projects.subtitle} />
         <div className="grid gap-6 md:grid-cols-2">
-          {projects.map((project) => (
-            <ProjectCard key={project.id} project={project} dict={dict} />
+          {projects.map((project, index) => (
+            <ProjectCard key={project.id} project={project} dict={dict} index={index} />
           ))}
         </div>
       </Container>

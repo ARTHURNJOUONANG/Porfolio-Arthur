@@ -27,7 +27,7 @@ export function Header({ dict, locale }: { dict: Dictionary; locale: Locale }) {
 
         <nav className="hidden items-center gap-6 text-sm text-mute md:flex" aria-label="Principal">
           {links.map(([href, key]) => (
-            <Link key={href} href={href} className="hover:text-ink">
+            <Link key={href} href={href} className="nav-link hover:text-ink">
               {dict.nav[key]}
             </Link>
           ))}

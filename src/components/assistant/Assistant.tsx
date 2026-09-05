@@ -53,7 +53,7 @@ export function Assistant({ dict, locale }: { dict: Dictionary; locale: Locale }
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-accent text-black shadow-lg"
+        className="assistant-pulse inline-flex h-12 w-12 items-center justify-center rounded-full bg-accent text-black shadow-lg"
         aria-label={dict.assistant.title}
       >
         <MessageCircle size={18} />
