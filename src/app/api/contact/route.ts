@@ -23,23 +23,31 @@ export async function POST(request: Request) {
 
   const clean = sanitizeMessage(parsed.data);
 
+  let stored = false;
   try {
     await prisma.message.create({ data: clean });
+    stored = true;
   } catch {
-    return NextResponse.json({ error: "Unable to store message" }, { status: 500 });
+    stored = false;
   }
 
-  if (!isResendConfigured()) {
+  if (isResendConfigured()) {
+    try {
+      await sendContactEmail(clean);
+      return NextResponse.json({ ok: true, emailed: true });
+    } catch (error) {
+      console.error("Resend a échoué", error);
+      if (stored) {
+        return NextResponse.json({ ok: true, emailed: false });
+      }
+      return NextResponse.json({ error: "Unable to send email" }, { status: 502 });
+    }
+  }
+
+  if (stored) {
     console.warn("RESEND_API_KEY manquante : le message est en base, mais aucun e-mail n'a été envoyé.");
     return NextResponse.json({ ok: true, emailed: false });
   }
 
-  try {
-    await sendContactEmail(clean);
-  } catch (error) {
-    console.error("Resend a échoué", error);
-    return NextResponse.json({ error: "Unable to send email" }, { status: 502 });
-  }
-
-  return NextResponse.json({ ok: true, emailed: true });
+  return NextResponse.json({ error: "Contact is temporarily unavailable" }, { status: 503 });
 }

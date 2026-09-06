@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { featuredProjects } from "@/data/featuredProjects";
 import { siteUrl } from "@/lib/utils";
 import { prisma } from "@/lib/prisma";
 
@@ -14,6 +15,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     });
   } catch {
     projects = [];
+  }
+
+  if (!projects.length) {
+    const now = new Date();
+    projects = featuredProjects.map((project) => ({ slug: project.slug, updatedAt: now }));
   }
 
   return [

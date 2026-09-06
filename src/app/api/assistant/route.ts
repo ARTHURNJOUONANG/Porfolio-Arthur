@@ -1,4 +1,7 @@
 import { NextResponse } from "next/server";
+import { featuredProjects } from "@/data/featuredProjects";
+import { skillGroups } from "@/data/content";
+import { cvExperiences } from "@/data/cv";
 import { answerQuestion } from "@/lib/assistant";
 import { defaultLocale, isLocale } from "@/i18n/config";
 import { prisma } from "@/lib/prisma";
@@ -25,14 +28,23 @@ export async function POST(request: Request) {
   ]);
 
   const knowledge = {
-    projects: projects.map((project) => ({
-      slug: project.slug,
-      title: locale === "en" ? project.titleEn : project.titleFr,
-      excerpt: locale === "en" ? project.excerptEn : project.excerptFr,
-      stack: parseJson<{ name: string }[]>(project.techStack, []).map((item) => item.name),
-    })),
-    skills: skills.map((skill) => skill.name),
-    experiences: experiences.map((item) => ({
+    projects: projects.length
+      ? projects.map((project) => ({
+          slug: project.slug,
+          title: locale === "en" ? project.titleEn : project.titleFr,
+          excerpt: locale === "en" ? project.excerptEn : project.excerptFr,
+          stack: parseJson<{ name: string }[]>(project.techStack, []).map((item) => item.name),
+        }))
+      : featuredProjects.map((project) => ({
+          slug: project.slug,
+          title: locale === "en" ? project.titleEn : project.titleFr,
+          excerpt: locale === "en" ? project.excerptEn : project.excerptFr,
+          stack: project.techStack.map((item) => item.name),
+        })),
+    skills: skills.length
+      ? skills.map((skill) => skill.name)
+      : skillGroups.flatMap((group) => [...group.items]),
+    experiences: (experiences.length ? experiences : [...cvExperiences]).map((item) => ({
       title: locale === "en" ? item.titleEn : item.titleFr,
       company: item.company,
     })),
