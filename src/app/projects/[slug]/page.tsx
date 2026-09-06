@@ -7,8 +7,9 @@ import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { getDictionary } from "@/i18n/dictionaries";
 import { getLocale } from "@/lib/locale";
+import { featuredProjects } from "@/data/featuredProjects";
 import { projectGalleries } from "@/data/projectMedia";
-import { getProject, getProjects, incrementProjectViews } from "@/lib/queries";
+import { getProject, incrementProjectViews } from "@/lib/queries";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -125,11 +126,6 @@ function Block({ title, body }: { title: string; body: string }) {
   );
 }
 
-export async function generateStaticParams() {
-  try {
-    const projects = await getProjects("fr");
-    return projects.map((project) => ({ slug: project.slug }));
-  } catch {
-    return [];
-  }
+export function generateStaticParams() {
+  return featuredProjects.map((project) => ({ slug: project.slug }));
 }

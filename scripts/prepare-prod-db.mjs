@@ -1,6 +1,10 @@
 import { spawnSync } from "node:child_process";
 
-if (!process.env.VERCEL) {
+const shouldPrepare = Boolean(
+  process.env.VERCEL || process.env.RAILWAY_ENVIRONMENT || process.env.RAILWAY_PROJECT_ID,
+);
+
+if (!shouldPrepare) {
   process.exit(0);
 }
 
