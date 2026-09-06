@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: portfolio-arthur
+    runtime: node
+    plan: free
+    region: frankfurt
+    buildCommand: npm install --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: NODE_ENV
+        value: production
+      - key: NEXT_PUBLIC_SITE_URL
+        sync: false
+      - key: RESEND_API_KEY
+        sync: false
+      - key: RESEND_FROM
+        value: Portfolio Arthur <onboarding@resend.dev>
+      - key: CONTACT_TO_EMAIL
+        value: arthurnjouonang5@gmail.com
